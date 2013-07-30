@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values-large/refs.xml -->
+    <item name="activity_subject_list" type="layout">@layout/activity_subject_twopane</item>
+
+</resources>

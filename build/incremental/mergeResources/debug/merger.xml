@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res" >
+            <file
+                name="ic_launcher"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/drawable-xhdpi/ic_launcher.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/drawable-xxhdpi/ic_launcher.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/drawable-mdpi/ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values-large/refs.xml"
+                qualifiers="large" >
+                <item
+                    name="activity_subject_list"
+                    type="layout">
+@layout/activity_subject_twopane
+                </item>
+            </file>
+            <file
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values-v11/styles.xml"
+                qualifiers="v11" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light" >
+
+                    <!-- API 11 theme customizations can go here. -->
+                </style>
+            </file>
+            <file
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values-sw600dp/refs.xml"
+                qualifiers="sw600dp" >
+                <item
+                    name="activity_subject_list"
+                    type="layout">
+@layout/activity_subject_twopane
+                </item>
+            </file>
+            <file
+                name="ic_launcher"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/drawable-hdpi/ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values/strings.xml"
+                qualifiers="" >
+                <string name="title_subject_detail" >Subject Detail
+                </string>
+                <string name="app_name" >MathProblem
+                </string>
+            </file>
+            <file
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values/styles.xml"
+                qualifiers="" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Light" >
+
+                    <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+                    -->
+                </style>
+
+                <style
+                    name="AppTheme"
+                    parent="AppBaseTheme" >
+
+                    <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+                </style>
+            </file>
+            <file
+                name="fragment_test"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/fragment_test.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="listview_grade_and_subject"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/listview_grade_and_subject"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_subject_twopane"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/activity_subject_twopane.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_explain"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/fragment_explain.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_subject_list"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/activity_subject_list.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_subject_detail"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/fragment_subject_detail.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_subject_detail"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/activity_subject_detail.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_guide"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/fragment_guide.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values-v14/styles.xml"
+                qualifiers="v14" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light.DarkActionBar" >
+
+                    <!-- API 14 theme customizations can go here. -->
+                </style>
+            </file>
+            <file
+                name="expandablelist_grade"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/expandablelist_grade.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="expandablelist_subject"
+                path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/expandablelist_subject.xml"
+                qualifiers=""
+                type="layout" />
+        </source>
+        <source path="/home/suzuno/Readboy/MathProblemProject/MathProblem/build/res/rs/debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/home/suzuno/Readboy/MathProblemProject/MathProblem/src/debug/res" />
+    </dataSet>
+
+</merger>

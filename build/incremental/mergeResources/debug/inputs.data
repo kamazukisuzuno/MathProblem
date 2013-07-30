@@ -1,0 +1,21 @@
+# incremental data. DO NOT EDIT.
+# format is <lastModified> <length> <SHA-1> <path>
+# Encoding is UTF-8
+1374735572000 4595 898a16344522fc79f9191ed86cc7c18b266174c7 /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/drawable-mdpi/ic_launcher.png
+1375165107000 224 39bfee3c0d323cd0db1d020d0ca37f5110b0145f /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/expandablelist_grade.xml
+1375173212000 228 7c283bb8c41611650d0d83ee7fec5554f165cf25 /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/listview_grade_and_subject
+1374808687000 1397 24fec0b39169e843ea13cde866dd6373a82004d9 /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/activity_subject_twopane.xml
+1374735572000 9840 b5897d8be181c2b4e09a3a895d6450eb851062ec /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/drawable-hdpi/ic_launcher.png
+1374735573000 680 c76f4caaa7a8dfe9727fa93001b3aee3b22d6716 /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values/styles.xml
+1374735573000 324 aa1f5f1723de9aee2669dc44a26fbc0ce776d35f /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values-v11/styles.xml
+1374807023000 276 a8c32eb9e696c4e873e4c319b57bdfd12f2eecda /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/fragment_guide.xml
+1374735572000 33777 ce7a2225e5caf47a6513aef9b3e503db7716920e /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/drawable-xxhdpi/ic_launcher.png
+1374735574000 376 f531ceb8976a85f1f78a1a0d1f22829d711782fd /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values-large/refs.xml
+1374735573000 381 b129b276e01126de5b3b753572ac67cbfc19454c /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values-v14/styles.xml
+1374807040000 276 a8c32eb9e696c4e873e4c319b57bdfd12f2eecda /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/fragment_explain.xml
+1374735574000 376 f531ceb8976a85f1f78a1a0d1f22829d711782fd /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values-sw600dp/refs.xml
+1374735574000 393 8f59f29a452843c37f1de0b128713e7b1403bf9d /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/fragment_subject_detail.xml
+1374807052000 276 a8c32eb9e696c4e873e4c319b57bdfd12f2eecda /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/fragment_test.xml
+1374735572000 16020 7c5a9047d91775cae2af76a90879858800a7363c /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/drawable-xhdpi/ic_launcher.png
+1374735574000 179 0956dcba95a00217b688146ae0d734ea572f6a70 /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/values/strings.xml
+1375169840000 489 fe846906f43cf6aa1b2473729f98598f431c3837 /home/suzuno/Readboy/MathProblemProject/MathProblem/src/main/res/layout/expandablelist_subject.xml

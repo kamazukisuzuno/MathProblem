@@ -16,7 +16,7 @@
 
 package com.readboy.mathproblem.widget;
 
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,7 +49,7 @@ import com.readboy.mathproblem.R;
 /**
  * Created by suzuno on 13-7-26.
  */
-public class ExpandableListFragment extends Fragment {
+public class ExpandableListFragment extends Fragment implements ExpandableListListener{
     static final int INTERNAL_EMPTY_ID = 0x00ff0001;
     static final int INTERNAL_PROGRESS_CONTAINER_ID = 0x00ff0002;
     static final int INTERNAL_LIST_CONTAINER_ID = 0x00ff0003;
@@ -58,19 +58,40 @@ public class ExpandableListFragment extends Fragment {
 
     final private Runnable mRequestFocus = new Runnable() {
         public void run() {
-            mList.focusableViewAvailable(mList);
+            mExpandableList.focusableViewAvailable(mExpandableList);
         }
     };
 
-    final private AdapterView.OnItemClickListener mOnClickListener
+/*    final private AdapterView.OnItemClickListener mOnClickListener
             = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             onListItemClick((ListView)parent, v, position, id);
         }
-    };
+    };*/
 
-    ListAdapter mAdapter;
-    ListView mList;
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        return false;
+    }
+
+    @Override
+    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+        return false;
+    }
+
+    @Override
+    public void onGroupCollapse(int groupPosition) {
+
+    }
+
+    @Override
+    public void onGroupExpand(int groupPosition) {
+
+    }
+
+/*    ListAdapter mAdapter;
+    ListView mList;*/
+
     View mEmptyView;
     TextView mStandardEmptyView;
     View mProgressContainer;
@@ -133,17 +154,23 @@ public class ExpandableListFragment extends Fragment {
                 ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
         // ------------------------------------------------------------------
 
-/*        ExpandableListView expandableListView = (ExpandableListView) View.inflate(
-                                        getActivity(), R.layout.listview_grade_and_subject, lframe);*/
+        /*ExpandableListView expandableListView = (ExpandableListView) View.inflate(
+                                        getActivity(), R.layout.expandable_gradelist, lframe);*/        // ------------------------------------------------------------------
 
-
-        // ------------------------------------------------------------------
-
-        ListView lv = new ListView(getActivity());
+        ExpandableListView lv = new ExpandableListView(getActivity());
         lv.setId(android.R.id.list);
         lv.setDrawSelectorOnTop(false);
         lframe.addView(lv, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+
+
+        // ------------------------------------------------------------------
+/*
+        ListView lv = new ListView(getActivity());
+        lv.setId(android.R.id.list);
+        lv.setDrawSelectorOnTop(false);
+        lframe.addView(lv, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));*/
 
         // ------------------------------------------------------------------
 
@@ -170,14 +197,14 @@ public class ExpandableListFragment extends Fragment {
     @Override
     public void onDestroyView() {
         mHandler.removeCallbacks(mRequestFocus);
-        mList = null;
+        mExpandableList = null;
         mListShown = false;
         mEmptyView = mProgressContainer = mListContainer = null;
         mStandardEmptyView = null;
         super.onDestroyView();
     }
 
-    /**
+/*    *//**
      * This method will be called when an item in the list is selected.
      * Subclasses should override. Subclasses can call
      * getListView().getItemAtPosition(position) if they need to access the
@@ -187,18 +214,19 @@ public class ExpandableListFragment extends Fragment {
      * @param v The view that was clicked within the ListView
      * @param position The position of the view in the list
      * @param id The row id of the item that was clicked
-     */
-    public void onListItemClick(ListView l, View v, int position, long id) {
-    }
+     *//*
+    public void onGroupItemClick(ListView l, View v, int position, long id) {
+
+    }*/
 
     /**
      * Provide the cursor for the list view.
      */
-    public void setListAdapter(ListAdapter adapter) {
-        boolean hadAdapter = mAdapter != null;
-        mAdapter = adapter;
-        if (mList != null) {
-            mList.setAdapter(adapter);
+    public void setExpandableListAdapter(SimpleExpandableListAdapter adapter) {
+        boolean hadAdapter = mExpandableAdapter != null;
+        mExpandableAdapter = adapter;
+        if (mExpandableList != null) {
+            mExpandableList.setAdapter(adapter);
             if (!mListShown && !hadAdapter) {
                 // The list was hidden, and previously didn't have an
                 // adapter.  It is now time to show it.
@@ -215,7 +243,7 @@ public class ExpandableListFragment extends Fragment {
      */
     public void setSelection(int position) {
         ensureList();
-        mList.setSelection(position);
+        mExpandableList.setSelection(position);
     }
 
     /**
@@ -223,7 +251,7 @@ public class ExpandableListFragment extends Fragment {
      */
     public int getSelectedItemPosition() {
         ensureList();
-        return mList.getSelectedItemPosition();
+        return mExpandableList.getSelectedItemPosition();
     }
 
     /**
@@ -231,7 +259,7 @@ public class ExpandableListFragment extends Fragment {
      */
     public long getSelectedItemId() {
         ensureList();
-        return mList.getSelectedItemId();
+        return mExpandableList.getSelectedItemId();
     }
 
     /**
@@ -239,7 +267,7 @@ public class ExpandableListFragment extends Fragment {
      */
     public ListView getListView() {
         ensureList();
-        return mList;
+        return mExpandableList;
     }
 
     /**
@@ -254,7 +282,7 @@ public class ExpandableListFragment extends Fragment {
         }
         mStandardEmptyView.setText(text);
         if (mEmptyText == null) {
-            mList.setEmptyView(mStandardEmptyView);
+            mExpandableList.setEmptyView(mStandardEmptyView);
         }
         mEmptyText = text;
     }
@@ -266,7 +294,7 @@ public class ExpandableListFragment extends Fragment {
      *
      * <p>Applications do not normally need to use this themselves.  The default
      * behavior of ListFragment is to start with the list not being shown, only
-     * showing it once an adapter is given with {@link #setListAdapter(ListAdapter)}.
+     * showing it once an adapter is given with {@link #setExpandableListAdapter(SimpleExpandableListAdapter)}.
      * If the list at that point had not been shown, when it does get shown
      * it will be do without the user ever seeing the hidden state.
      *
@@ -334,21 +362,21 @@ public class ExpandableListFragment extends Fragment {
     /**
      * Get the ListAdapter associated with this activity's ListView.
      */
-    public ListAdapter getListAdapter() {
-        return mAdapter;
+    public SimpleExpandableListAdapter getExpandableListAdapter() {
+        return mExpandableAdapter;
     }
 
     private void ensureList() {
-        if (mList != null) {
+        if (mExpandableList != null) {
             return;
         }
         View root = getView();
         if (root == null) {
             throw new IllegalStateException("Content view not yet created");
         }
-        if (root instanceof ListView) {
-            Log.v("ExpandableListFragment","root is list view");
-            mList = (ListView)root;
+        if (root instanceof ExpandableListView) {
+            Log.v("ExpandableListFragment","root is expandablelistview");
+            mExpandableList = (ExpandableListView)root;
         } else {
             Log.v("ExpandableListFragment","root is not list view");
 
@@ -360,31 +388,40 @@ public class ExpandableListFragment extends Fragment {
             }
             mProgressContainer = root.findViewById(INTERNAL_PROGRESS_CONTAINER_ID);
             mListContainer = root.findViewById(INTERNAL_LIST_CONTAINER_ID);
-            View rawListView = root.findViewById(android.R.id.list);
-            if (!(rawListView instanceof ListView)) {
-                if (rawListView == null) {
+            View rawExpandableListView = root.findViewById(android.R.id.list);
+            if (!(rawExpandableListView instanceof ExpandableListView)) {
+                if (rawExpandableListView == null) {
                     throw new RuntimeException(
-                            "Your content must have a ListView whose id attribute is " +
+                            "Your content must have a ExpandableListView whose id attribute is " +
                                     "'android.R.id.list'");
                 }
                 throw new RuntimeException(
                         "Content has view with id attribute 'android.R.id.list' "
-                                + "that is not a ListView class");
+                                + "that is not a rawExpandableListView class");
             }
-            mList = (ListView)rawListView;
+            mExpandableList = (ExpandableListView)rawExpandableListView;
+
             if (mEmptyView != null) {
-                mList.setEmptyView(mEmptyView);
+                mExpandableList.setEmptyView(mEmptyView);
             } else if (mEmptyText != null) {
                 mStandardEmptyView.setText(mEmptyText);
-                mList.setEmptyView(mStandardEmptyView);
+                mExpandableList.setEmptyView(mStandardEmptyView);
             }
         }
         mListShown = true;
-        mList.setOnItemClickListener(mOnClickListener);
-        if (mAdapter != null) {
-            ListAdapter adapter = mAdapter;
-            mAdapter = null;
-            setListAdapter(adapter);
+
+
+        mExpandableList.setOnGroupClickListener(this);
+        mExpandableList.setOnChildClickListener(this);
+        mExpandableList.setOnGroupExpandListener(this);
+        mExpandableList.setOnGroupCollapseListener(this);
+
+        /*mExpandableList.setOnItemClickListener(mOnClickListener);*/
+
+        if (mExpandableAdapter != null) {
+            SimpleExpandableListAdapter adapter = mExpandableAdapter;
+            mExpandableAdapter = null;
+            setExpandableListAdapter(adapter);
         } else {
             // We are starting without an adapter, so assume we won't
             // have our data right away and start with the progress indicator.
@@ -394,4 +431,46 @@ public class ExpandableListFragment extends Fragment {
         }
         mHandler.post(mRequestFocus);
     }
+
+    /**
+     *insert a group into the group list,if the index is larger than the list size,it will be inserted at the end of list
+     * @param groupName name for group
+     * @param index     index of group
+     */
+    public void addGroup(String groupName,int index){
+
+    }
+
+    /**
+     *insert a group at the end of group list
+     * @param groupName name for group
+     */
+    public void addGroup(String groupName){
+
+    }
+
+    /**
+     *add a child to a group,if the index is larger than the list size,it will be inserted at the end of group
+     * @param groupIndex
+     * @param childName
+     * @param index
+     */
+    public void addChild(int groupIndex,String childName,int index){
+
+    }
+
+    /**
+     *add a child at the end of the given group
+     * @param groupIndex
+     * @param childName
+     */
+    public void addChild(int groupIndex,String childName){
+
+    }
+
+}
+
+interface ExpandableListListener extends ExpandableListView.OnChildClickListener,ExpandableListView.OnGroupClickListener,
+        ExpandableListView.OnGroupExpandListener,ExpandableListView.OnGroupCollapseListener{
+
 }

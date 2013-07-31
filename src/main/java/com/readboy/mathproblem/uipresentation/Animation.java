@@ -1,4 +1,4 @@
-package com.readboy.mathproblem.uipresent;
+package com.readboy.mathproblem.uipresentation;
 
 /**
  * Created by suzuno on 13-7-26.

@@ -1,25 +1,33 @@
-package com.readboy.mathproblem.uipresent;
+package com.readboy.mathproblem.uipresentation;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.SimpleExpandableListAdapter;
 
-import com.readboy.mathproblem.subject.SubjectContent;
-import com.readboy.mathproblem.subject.SubjectItem;
+import com.readboy.mathproblem.R;
 import com.readboy.mathproblem.widget.ExpandableListFragment;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A list fragment representing a list of Subjects. This fragment
  * also supports tablet devices by allowing list items to be given an
  * 'activated' state upon selection. This helps indicate which item is
- * currently being viewed in a {@link com.readboy.mathproblem.uipresent.FragmentSubject}.
+ * currently being viewed in a {@link SubjectFragment}.
  * <p>
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class FragmentSubjectList extends ExpandableListFragment {
+public class GradelistFragment extends ExpandableListFragment {
+
+    private final static String LOG_TAG = "GradelistFragment";
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -39,6 +47,17 @@ public class FragmentSubjectList extends ExpandableListFragment {
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
     /**
+     * Grade list
+     */
+    List<Map<String,String>> mGradeList = new ArrayList<Map<String, String>>(7);
+
+    /**
+     * sub class lists container
+     */
+    List<List<Map<String, String>>> mSubContainerLists = new ArrayList<List<Map<String, String>>>();
+
+
+    /**
      * A callback interface that all activities containing this fragment must
      * implement. This mechanism allows activities to be notified of item
      * selections.
@@ -47,7 +66,7 @@ public class FragmentSubjectList extends ExpandableListFragment {
         /**
          * Callback for when an item has been selected.
          */
-        public void onItemSelected(String id);
+        public void onSubclassSelected(int gradeIndex, int subclassindex);
     }
 
     /**
@@ -56,7 +75,7 @@ public class FragmentSubjectList extends ExpandableListFragment {
      */
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onItemSelected(String id) {
+        public void onSubclassSelected(int gradeIndex, int subclassIndex) {
         }
     };
 
@@ -64,19 +83,36 @@ public class FragmentSubjectList extends ExpandableListFragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public FragmentSubjectList() {
+    public GradelistFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(getActivity(),mGradeList, R.layout.expandablelist_grade,new String[]{"grade"},new int[]{R.id.grade},
+                mSubContainerLists,R.layout.expandablelist_subject,new String[]{"child"},new int[]{R.id.subject});
+
         // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<SubjectItem>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                SubjectContent.ITEMS));
+        setExpandableListAdapter(adapter);
+
+        loadList();
+        adapter.notifyDataSetChanged();
+    }
+
+    private void loadList(){
+
+
+        addGroup("group1");
+        addChild(0,"child1");
+
+        addGroup("group2");
+        addChild(1,"child1");
+        addChild(1,"child2");
+        addGroup("group3");
+        addChild(2,"child1");
+        addChild(2,"child2");
+        addChild(2,"child3");
     }
 
     @Override
@@ -111,12 +147,26 @@ public class FragmentSubjectList extends ExpandableListFragment {
     }
 
     @Override
-    public void onListItemClick(ListView listView, View view, int position, long id) {
-        super.onListItemClick(listView, view, position, id);
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        Log.v(LOG_TAG,"on child click "+groupPosition);
+        mCallbacks.onSubclassSelected(groupPosition, childPosition);
+        return false;
+    }
 
-        // Notify the active callbacks interface (the activity, if the
-        // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(SubjectContent.ITEMS.get(position).getId());
+    @Override
+    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+        Log.v(LOG_TAG,"on group click "+groupPosition);
+        return false;
+    }
+
+    @Override
+    public void onGroupCollapse(int groupPosition) {
+        Log.v(LOG_TAG,"on group collapse "+groupPosition);
+    }
+
+    @Override
+    public void onGroupExpand(int groupPosition) {
+        Log.v(LOG_TAG,"on group expand "+groupPosition);
     }
 
     @Override
@@ -148,5 +198,36 @@ public class FragmentSubjectList extends ExpandableListFragment {
         }
 
         mActivatedPosition = position;
+    }
+
+    @Override
+    public void addGroup(String groupName,int index){
+        addGroup(groupName);
+    }
+
+    @Override
+    public void addGroup(String groupName){
+        Map<String,String> grade= new HashMap<String, String>();
+        grade.put("grade",groupName);
+        mGradeList.add(grade);
+
+        List<Map<String,String>> contentList = new ArrayList<Map<String, String>>();
+        mSubContainerLists.add(contentList);
+    }
+
+    @Override
+    public void addChild(int groupIndex,String childName,int index){
+        List<Map<String,String>> contentList = mSubContainerLists.get(groupIndex);
+        Map<String,String> subclass = new HashMap<String, String>();
+        subclass.put("child",childName);
+        contentList.add(index,subclass);
+    }
+
+    @Override
+    public void addChild(int groupIndex,String childName){
+        List<Map<String,String>> contentList = mSubContainerLists.get(groupIndex);
+        Map<String,String> subclass = new HashMap<String, String>();
+        subclass.put("child", childName);
+        contentList.add(subclass);
     }
 }

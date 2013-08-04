@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        >
+    <!--LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="left|center_vertical">
+        <Image
+    </LinearLayout-->
+    <com.readboy.mathproblem.widget.CirclePageIndicator
+            android:id="@+id/indicator"
+            android:padding="10dip"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:background="#FFCCCCCC"
+            app:radius="10dp"
+            app:fillColor="#88FF0000"
+            app:pageColor="#FF888888"
+            app:strokeColor="#FF000000"
+            app:strokeWidth="2dp" />
+    <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:layout_weight="1">
+        <!--android.support.v4.view.PagerTitleStrip
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/tab_strip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/-->
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="left|center_vertical"
+            android:paddingLeft="100dip"
+            android:layout_marginBottom="50dip">
+        <Button xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/a"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="A"/>
+        <Button xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/b"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="B"/>
+        <Button xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/c"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="C"/>
+        <Button xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/d"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="D"/>
+        <Button xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/submit"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/submit"/>
+    </LinearLayout>
+
+</LinearLayout>

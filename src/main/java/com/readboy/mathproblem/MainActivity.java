@@ -1,19 +1,31 @@
 package com.readboy.mathproblem;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.FragmentTransaction;
+import android.os.Environment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ShareActionProvider;
+import android.widget.Toast;
 
-import com.readboy.mathproblem.uipresentation.SubjectFragment;
+import com.readboy.mathproblem.data.DataLoader;
+import com.readboy.mathproblem.data.DataStructure;
+import com.readboy.mathproblem.data.LoadData;
+import com.readboy.mathproblem.subject.SubjectItem;
+import com.readboy.mathproblem.uipresentation.ExplainPageFragment;
 import com.readboy.mathproblem.uipresentation.GradelistFragment;
+import com.readboy.mathproblem.uipresentation.GuideFragment;
+import com.readboy.mathproblem.uipresentation.TestPageFragment;
+
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -25,27 +37,37 @@ import com.readboy.mathproblem.uipresentation.GradelistFragment;
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
  * {@link com.readboy.mathproblem.uipresentation.GradelistFragment} and the item details
- * (if present) is a {@link com.readboy.mathproblem.uipresentation.SubjectFragment}.
+ * (if present) is a {@link com.readboy.mathproblem.uipresentation.ExplainPageFragment}.
  * <p>
  * This activity also implements the required
  * {@link com.readboy.mathproblem.uipresentation.GradelistFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class MainActivity extends Activity
+public class MainActivity extends FragmentActivity
         implements GradelistFragment.Callbacks,ActionBar.TabListener {
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
+    private String guide;
+    private String example;
+    private String test;
+
+    private int mCurrentGrade = -1;
+    private int mCurrentSubject = -1;
+    private int mCurrentModule;
+
+    private Map<String,ActionBar.Tab> mTabs = new HashMap<String, ActionBar.Tab>();
+    private DataLoader          mLoader;
+    private DataStructure       mData;
+    private GradelistFragment   mListFragment;
+    private SubjectItem         mSubject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_twopane);
 
-        Fragment fragment = getFragmentManager().findFragmentById(R.id.subject_list);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.subject_list);
         GradelistFragment gradelistFragment = (GradelistFragment)fragment;
+        mListFragment = gradelistFragment;
         gradelistFragment.setActivateOnItemClick(true);
 
         init();
@@ -55,10 +77,36 @@ public class MainActivity extends Activity
     }
 
     private void init(){
+        guide = getString(R.string.guide);
+        example = getString(R.string.example);
+        test = getString(R.string.test);
+
         toggleTabs();
-        addTabs("guide");
-        addTabs("example");
-        addTabs("test");
+        addTabs(guide);
+        addTabs(example);
+        addTabs(test);
+
+        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+        String dataFilePath = filePath+"/yingyongti.mxd";
+
+        try {
+            mLoader = new DataLoader(dataFilePath);
+            mData = new DataStructure();
+        } catch (FileNotFoundException e) {
+            Toast.makeText(this,R.string.data_not_found,Toast.LENGTH_LONG).show();
+        }
+
+        mData.loadSubjectAddress(mLoader);
+        mData.setGradeTitle(new String[]{
+                getString(R.string.grade1),
+                getString(R.string.grade2),
+                getString(R.string.grade3),
+                getString(R.string.grade4),
+                getString(R.string.grade5),
+                getString(R.string.grade6),
+                getString(R.string.grade7),
+        });
+        mListFragment.loadList(mData,getString(R.string.caesura));
     }
 
     /**
@@ -71,25 +119,34 @@ public class MainActivity extends Activity
         // adding or replacing the detail fragment using a
         // fragment transaction.
         Bundle arguments = new Bundle();
-        arguments.putString(SubjectFragment.ARG_ITEM_ID,"gradeIndex:"+gradeIndex+",subclassIndex:"+subclassIndex);
-        SubjectFragment fragment = new SubjectFragment();
+        SubjectItem item;
+        GuideFragment fragment = new GuideFragment();
+        try {
+            item = SubjectItem.loadSubject(mLoader, mData.getSubjectAdr(gradeIndex, subclassIndex));
+            mSubject = item;
+            fragment.loadData(mLoader,item);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this,"load subject item error",Toast.LENGTH_LONG).show();
+        }
+
+
+        mCurrentModule = 0;
+        mTabs.get(guide).select();
+
         fragment.setArguments(arguments);
-
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.animator.fragment_slide_left_enter,
-                R.animator.fragment_slide_left_exit,
-                R.animator.fragment_slide_right_enter,
-                R.animator.fragment_slide_right_exit);
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.subject_detail_container, fragment).commit();
+
+        mCurrentGrade = gradeIndex;
+        mCurrentSubject = subclassIndex;
 
         Log.v("MainActivity","on subclass selected");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        menu.add("Toogle Tabs");
-        menu.add("Add Tabs");
+        menu.add("Config");
 
         MenuItem actionItem = menu.add("Share");
 
@@ -108,16 +165,10 @@ public class MainActivity extends Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getTitle()=="Toogle Tabs"){
-            toggleTabs();
+        if(item.getTitle()=="Config"){
+
         }
-        if(item.getTitle()=="Add Tabs"){
-            final ActionBar bar = getActionBar();
-            final int tabCount = bar.getTabCount();
-            final String text = "Tab " + tabCount;
-            bar.addTab(bar.newTab()
-                    .setText(text).setTabListener(this));
-        }
+
         return true;
     }
 
@@ -137,8 +188,10 @@ public class MainActivity extends Activity
         final int tabCount = bar.getTabCount();
         final String text = tabTitle;
         //ActionBar.Tab tab = bar.newTab();
-        bar.addTab(bar.newTab()
-                .setText(text).setTabListener(this));
+        ActionBar.Tab tab = bar.newTab()
+                .setText(text).setTabListener(this);
+        mTabs.put(tabTitle,tab);
+        bar.addTab(tab);
     }
 
     private Intent createShareIntent(){
@@ -156,15 +209,45 @@ public class MainActivity extends Activity
     @Override
     public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
 
+        mCurrentModule = tab.getPosition();
+
+        Bundle arguments = new Bundle();
+        arguments.putInt(DataStructure.GRADE, mCurrentGrade);
+        arguments.putInt(DataStructure.SUBJECT,mCurrentSubject);
+
+        Fragment fragment;
+        switch (mCurrentModule){
+            case 0:
+                fragment = new GuideFragment();
+                break;
+            case 1:
+                fragment = new ExplainPageFragment();
+                break;
+            case 2:
+                fragment = new TestPageFragment();
+                break;
+            default:
+                fragment = new GuideFragment();
+
+        }
+
+        LoadData loader = (LoadData) fragment;
+        if(mSubject!=null){
+            loader.loadData(mLoader,mSubject);
+        }
+
+        fragment.setArguments(arguments);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.subject_detail_container, fragment).commit();
     }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-
+        //Toast.makeText(this,"on tab unselected",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-
+        //Toast.makeText(this,"on tab reselected",Toast.LENGTH_SHORT).show();
     }
 }

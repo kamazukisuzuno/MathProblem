@@ -19,10 +19,12 @@ import java.util.List;
 /**
  * Created by suzuno on 13-8-2.
  */
-public class ExplainFragment extends Fragment implements LoadData {
+public class TestFragment extends Fragment implements LoadData {
 
     private int mIndex;
     private String mContent;
+    private String mAnswer;
+    private String mExplain;
     private List<byte[]> mImage;
 
     private SubjectItem mSubject;
@@ -37,7 +39,7 @@ public class ExplainFragment extends Fragment implements LoadData {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ExplainFragment() {
+    public TestFragment() {
     }
 
     @Override
@@ -52,11 +54,13 @@ public class ExplainFragment extends Fragment implements LoadData {
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
 
-        mContent = mSubject.getExampleContent(mIndex);
-        mImage = mSubject.getExampleResource(mIndex);
+        mContent = mSubject.getTestContent(mIndex);
+        mAnswer = mSubject.getTestAnswer(mIndex);
+        mExplain = mSubject.getTestExplain(mIndex);
+        mImage = mSubject.getTestResource(mIndex);
 
-        View rootView = inflater.inflate(R.layout.explain_fragment,container,false);
-        TextViewWithPicture tv = (TextViewWithPicture) rootView.findViewById(R.id.example);
+        View rootView = inflater.inflate(R.layout.test_fragment,container,false);
+        TextViewWithPicture tv = (TextViewWithPicture) rootView.findViewById(R.id.test);
         tv.updateTextView(mContent,mImage);
         tv.setMovementMethod(new ScrollingMovementMethod());
         return rootView;
@@ -64,7 +68,6 @@ public class ExplainFragment extends Fragment implements LoadData {
 
     @Override
     public void loadData(DataLoader loader, SubjectItem subject) {
-
         mSubject = subject;
     }
 }

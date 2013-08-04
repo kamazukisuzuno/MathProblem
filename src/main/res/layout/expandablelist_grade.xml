@@ -4,4 +4,8 @@
     android:id="@+id/grade"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:textSize="30dip"
+    android:paddingLeft="30dip"
+    android:paddingTop="5dip"
+    android:paddingBottom="5dip"
     />

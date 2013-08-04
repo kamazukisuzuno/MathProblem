@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.SimpleExpandableListAdapter;
 
 import com.readboy.mathproblem.R;
+import com.readboy.mathproblem.data.DataStructure;
 import com.readboy.mathproblem.widget.ExpandableListFragment;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.Map;
  * A list fragment representing a list of Subjects. This fragment
  * also supports tablet devices by allowing list items to be given an
  * 'activated' state upon selection. This helps indicate which item is
- * currently being viewed in a {@link SubjectFragment}.
+ * currently being viewed in a {@link ExplainPageFragment}.
  * <p>
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
@@ -96,23 +97,24 @@ public class GradelistFragment extends ExpandableListFragment {
         // TODO: replace with a real list adapter.
         setExpandableListAdapter(adapter);
 
-        loadList();
         adapter.notifyDataSetChanged();
     }
 
-    private void loadList(){
+    public void loadList(DataStructure data,String caesura){
 
-
-        addGroup("group1");
-        addChild(0,"child1");
-
-        addGroup("group2");
-        addChild(1,"child1");
-        addChild(1,"child2");
-        addGroup("group3");
-        addChild(2,"child1");
-        addChild(2,"child2");
-        addChild(2,"child3");
+        int gradeCount = data.getGradeCount();
+        for(int i=0;i<gradeCount;i++){
+            addGroup(data.getGradeTitle(i));
+            int childCount = data.getSubjectCount(i);
+            for(int j=0;j<childCount;j++){
+                String title = data.getSubjectTitle(i,j);
+                if(i==6){
+                    addChild(i,title.substring(title.indexOf(caesura)+1,title.length()));
+                }else{
+                    addChild(i,title);
+                }
+            }
+        }
     }
 
     @Override
@@ -207,6 +209,7 @@ public class GradelistFragment extends ExpandableListFragment {
 
     @Override
     public void addGroup(String groupName){
+
         Map<String,String> grade= new HashMap<String, String>();
         grade.put("grade",groupName);
         mGradeList.add(grade);

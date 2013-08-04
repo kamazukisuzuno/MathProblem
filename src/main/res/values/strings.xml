@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MathProblem</string>
+    <string name="app_name">应用题指导</string>
     <string name="title_subject_detail">Subject Detail</string>
-
+    <string name="guide">指点迷津</string>
+    <string name="example">例题解析</string>
+    <string name="test">同步测验</string>
+    <string name="config">设置</string>
+    <string name="data_not_found">数据不存在</string>
+    <string name="grade7">应用题技巧</string>
+    <string name="grade1">一年级</string>
+    <string name="grade2">二年级</string>
+    <string name="grade3">三年级</string>
+    <string name="grade4">四年级</string>
+    <string name="grade5">五年级</string>
+    <string name="grade6">六年级</string>
+    <string name="caesura">、</string>
+    <string name="submit">交卷</string>
 </resources>

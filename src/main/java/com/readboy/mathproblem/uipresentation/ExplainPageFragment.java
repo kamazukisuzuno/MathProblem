@@ -1,5 +1,8 @@
 package com.readboy.mathproblem.uipresentation;
 
+import java.io.IOException;
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +16,8 @@ import android.view.ViewGroup;
 
 import com.readboy.mathproblem.R;
 import com.readboy.mathproblem.data.DataLoader;
-import com.readboy.mathproblem.data.LoadData;
+import com.readboy.mathproblem.data.SetData;
+import com.readboy.mathproblem.data.SoundPlayer;
 import com.readboy.mathproblem.subject.SubjectItem;
 import com.readboy.mathproblem.widget.CirclePageIndicator;
 
@@ -23,13 +27,14 @@ import com.readboy.mathproblem.widget.CirclePageIndicator;
  * in two-pane mode (on tablets) or
  * on handsets.
  */
-public class ExplainPageFragment extends Fragment implements LoadData {
+public class ExplainPageFragment extends Fragment implements SetData {
 
     Bundle mArguments;
     private int mExampleCount;
     private DataLoader mLoader;
     private SubjectItem mSubject;
-
+    private SoundPlayer mPlayer;
+    
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -110,7 +115,7 @@ public class ExplainPageFragment extends Fragment implements LoadData {
             arguments.putInt(ARG_ITEM_ID,position);
             fragment.setArguments(arguments);
 
-            LoadData loader = (LoadData) fragment;
+            SetData loader = (SetData) fragment;
             loader.loadData(mLoader,mSubject);
 
             return fragment;
@@ -120,5 +125,29 @@ public class ExplainPageFragment extends Fragment implements LoadData {
         public int getCount() {
             return mExampleCount;
         }
+    }
+
+	@Override
+	public void setSoundPlayer(SoundPlayer player) {
+		mPlayer = player;
+	}
+	
+    @Override
+    public void onAttach(Activity activity){
+    	super.onAttach(activity);
+    	if(mPlayer!=null&&mSubject!=null){
+    		try {
+				mPlayer.playSound(SoundPlayer.EXAMPLE, mSubject.getGrade(),mSubject.getSubject());
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     }
 }

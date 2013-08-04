@@ -16,14 +16,17 @@ import android.widget.Toast;
 
 import com.readboy.mathproblem.data.DataLoader;
 import com.readboy.mathproblem.data.DataStructure;
-import com.readboy.mathproblem.data.LoadData;
+import com.readboy.mathproblem.data.SetData;
+import com.readboy.mathproblem.data.SoundPlayer;
 import com.readboy.mathproblem.subject.SubjectItem;
 import com.readboy.mathproblem.uipresentation.ExplainPageFragment;
 import com.readboy.mathproblem.uipresentation.GradelistFragment;
 import com.readboy.mathproblem.uipresentation.GuideFragment;
 import com.readboy.mathproblem.uipresentation.TestPageFragment;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,6 +62,7 @@ public class MainActivity extends FragmentActivity
     private DataStructure       mData;
     private GradelistFragment   mListFragment;
     private SubjectItem         mSubject;
+    private SoundPlayer 		mPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +92,18 @@ public class MainActivity extends FragmentActivity
 
         String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
         String dataFilePath = filePath+"/yingyongti.mxd";
+        String soundFilePath = filePath+"/yytsph.bin";
 
         try {
             mLoader = new DataLoader(dataFilePath);
+            mPlayer = SoundPlayer.getSoundPlayer(new File(soundFilePath));
             mData = new DataStructure();
         } catch (FileNotFoundException e) {
             Toast.makeText(this,R.string.data_not_found,Toast.LENGTH_LONG).show();
-        }
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         mData.loadSubjectAddress(mLoader);
         mData.setGradeTitle(new String[]{
@@ -123,8 +132,12 @@ public class MainActivity extends FragmentActivity
         GuideFragment fragment = new GuideFragment();
         try {
             item = SubjectItem.loadSubject(mLoader, mData.getSubjectAdr(gradeIndex, subclassIndex));
+            item.setGrade(gradeIndex);
+            item.setSubject(subclassIndex);
             mSubject = item;
             fragment.loadData(mLoader,item);
+            fragment.setSoundPlayer(mPlayer);
+            
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this,"load subject item error",Toast.LENGTH_LONG).show();
@@ -231,9 +244,10 @@ public class MainActivity extends FragmentActivity
 
         }
 
-        LoadData loader = (LoadData) fragment;
+        SetData loader = (SetData) fragment;
         if(mSubject!=null){
             loader.loadData(mLoader,mSubject);
+            loader.setSoundPlayer(mPlayer);
         }
 
         fragment.setArguments(arguments);
@@ -249,5 +263,20 @@ public class MainActivity extends FragmentActivity
     @Override
     public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
         //Toast.makeText(this,"on tab reselected",Toast.LENGTH_SHORT).show();
+    }
+    
+    public void playSound(int soundId,int grade,int subject){
+    	try {
+			mPlayer.playSound(soundId, grade, subject);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

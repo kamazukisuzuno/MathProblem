@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import com.readboy.mathproblem.R;
 import com.readboy.mathproblem.data.DataLoader;
-import com.readboy.mathproblem.data.LoadData;
+import com.readboy.mathproblem.data.SetData;
+import com.readboy.mathproblem.data.SoundPlayer;
 import com.readboy.mathproblem.subject.SubjectItem;
 import com.readboy.mathproblem.widget.TextViewWithPicture;
 
@@ -19,14 +20,14 @@ import java.util.List;
 /**
  * Created by suzuno on 13-8-2.
  */
-public class ExplainFragment extends Fragment implements LoadData {
+public class ExplainFragment extends Fragment implements SetData {
 
     private int mIndex;
     private String mContent;
     private List<byte[]> mImage;
 
     private SubjectItem mSubject;
-
+    private SoundPlayer mPlayer;
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -67,4 +68,9 @@ public class ExplainFragment extends Fragment implements LoadData {
 
         mSubject = subject;
     }
+
+	@Override
+	public void setSoundPlayer(SoundPlayer player) {
+		mPlayer = player;
+	}
 }

@@ -16,19 +16,19 @@ public class SoundPlayer {
 
     public static final int GUIDE = 1;
     public static final int EXAMPLE = 2;
-    public static final int TEST 3;
-    public static final int RIGHT 10;
-    public static final int WRONG 30;
-    public static final int A;
-    public static final int B;
-    public static final int C;
-    public static final int D;
-    public static final int RESULT00;
-    public static final int RESULT20;
-    public static final int RESULT40;
-    public static final int RESULT60;
-    public static final int RESULT80;
-    public static final int RESULT100;
+    public static final int TEST = 3;
+    public static final int RIGHT = 10;
+    public static final int WRONG = 30;
+	public static final int ANSWER_IS_A		= 60;
+	public static final int ANSWER_IS_B		= 61;
+	public static final int ANSWER_IS_C		= 62;
+	public static final int ANSWER_IS_D		= 63;
+	public static final int RESULT_00	= 51;
+	public static final int RESULT_20	= 52;
+	public static final int RESULT_40	= 53;
+	public static final int RESULT_60	= 54;
+	public static final int RESULT_80	= 55;
+	public static final int RESULT_100	= 56;
 
 
     private MediaPlayer mPlayer = new MediaPlayer();
@@ -36,7 +36,7 @@ public class SoundPlayer {
     private Map<Integer,Sound> mapping = new HashMap<Integer, Sound>();
 
 
-    public static SoundPlayer getSoundPlayer(File soundFile){
+    public static SoundPlayer getSoundPlayer(File soundFile) throws IOException{
         SoundPlayer player = new SoundPlayer();
         try {
             player.mSound = new RandomAccessFile(soundFile,"r");
@@ -44,6 +44,7 @@ public class SoundPlayer {
             e.printStackTrace();
             return null;
         }
+        player.init();
         return player;
     }
 
@@ -65,64 +66,44 @@ public class SoundPlayer {
     }
 
     public void playSound(int soundId,int grade,int subject) throws IllegalArgumentException, IllegalStateException, IOException{
-        mPlayer.reset();
+        int soundIndex;
+    	
+    	mPlayer.reset();
+        
         switch(soundId){
-            case 0:
-                switch(grade){
-                    case GRADE1:
-                        code = 100 + section;
-                        break;
-                    case GRADE2:
-                        code = 200 + section;
-                        break;
-                    case GRADE3:
-                        code = 300 + section;
-                        break;
-                    case GRADE4:
-                        code = 400 + section;
-                        break;
-                    case GRADE5:
-                        code = 500 + section;
-                        break;
-                    case GRADE6:
-                        code = 600 + section;
-                        break;
-                    case YYTJQ:
-                        code = 700 + section;
-                        break;
-                }
-                break;
-            case LTJX:
-                code = 2;
-                break;
-            case TBCS:
-                code = 3;
-                break;
-            case SRIGHT:
-                code = (int)(11+Math.random()*8);
-                break;
-            case SWRONG:
-                code = (int)(31+Math.random()*5);
-                break;
-            case SWRONGA:
-            case SWRONGB:
-            case SWRONGC:
-            case SWRONGD:
-                break;
-            case SRESULT00:
-            case SRESULT20:
-            case SRESULT40:
-            case SRESULT60:
-            case SRESULT80:
-            case SRESULT100:
-                break;
-            default:
-                break;
+        case GUIDE:
+        	soundIndex = (grade+1)*100+subject+1;
+        	break;
+        case RIGHT:
+        	soundIndex = (int)(11+Math.random()*8);
+        	break;
+        case WRONG:
+        	soundIndex = (int)(31+Math.random()*5);
+        	break;
+        case EXAMPLE:
+        case TEST:
+        case ANSWER_IS_A:
+        case ANSWER_IS_B:
+        case ANSWER_IS_C:
+        case ANSWER_IS_D:
+        case RESULT_00:
+        case RESULT_20:
+        case RESULT_40:
+        case RESULT_60:
+        case RESULT_80:
+        case RESULT_100:
+        	soundIndex = soundId;
+        default:
+        	soundIndex = soundId;
         }
 
-        player.setDataSource(soundFileDescriptor, mapping.get(code).mOffset,mapping.get(code).mLength);
-        player.prepare();
-        player.start();
+        Sound sound = mapping.get(soundIndex);
+        if(sound!=null){
+        	mPlayer.setDataSource(mSound.getFD(), sound.mOffset,sound.mLength);
+            mPlayer.prepare();
+            mPlayer.start();
+        }
+        
     }
 
     class Sound{

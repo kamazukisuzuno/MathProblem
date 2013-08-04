@@ -1,5 +1,8 @@
 package com.readboy.mathproblem.uipresentation;
 
+import java.io.IOException;
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +17,8 @@ import android.widget.Button;
 
 import com.readboy.mathproblem.R;
 import com.readboy.mathproblem.data.DataLoader;
-import com.readboy.mathproblem.data.LoadData;
+import com.readboy.mathproblem.data.SetData;
+import com.readboy.mathproblem.data.SoundPlayer;
 import com.readboy.mathproblem.subject.SubjectItem;
 import com.readboy.mathproblem.widget.CirclePageIndicator;
 
@@ -22,14 +26,14 @@ import com.readboy.mathproblem.widget.CirclePageIndicator;
 /**
  * Created by suzuno on 13-8-2.
  */
-public class TestPageFragment extends Fragment implements LoadData,View.OnClickListener {
+public class TestPageFragment extends Fragment implements SetData,View.OnClickListener {
 
     Bundle mArguments;
 
     private int mTestCount;
     private DataLoader mLoader;
     private SubjectItem mSubject;
-
+    private SoundPlayer mPlayer;
     private CirclePageIndicator mCirclePageIndicator;
     /**
      * The fragment argument representing the item ID that this fragment
@@ -132,7 +136,7 @@ public class TestPageFragment extends Fragment implements LoadData,View.OnClickL
         }
 
         if(answer!=null){
-            mSubject.solveProblem(answer,mCirclePageIndicator.getCurrentPage());
+            mSubject.solveProblem(answer,mCirclePageIndicator.getCurrentPage(),mPlayer);
         }
     }
 
@@ -150,7 +154,7 @@ public class TestPageFragment extends Fragment implements LoadData,View.OnClickL
             arguments.putInt(ARG_ITEM_ID,position);
             fragment.setArguments(arguments);
 
-            LoadData loader = (LoadData) fragment;
+            SetData loader = (SetData) fragment;
             loader.loadData(mLoader,mSubject);
 
             return fragment;
@@ -158,7 +162,34 @@ public class TestPageFragment extends Fragment implements LoadData,View.OnClickL
 
         @Override
         public int getCount() {
-            return mSubject.getTestCount();
+        	if(mSubject!=null){
+                return mSubject.getTestCount();
+        	}
+        	else return 0;
         }
+    }
+
+	@Override
+	public void setSoundPlayer(SoundPlayer player) {
+		mPlayer = player;
+	}
+	
+    @Override
+    public void onAttach(Activity activity){
+    	super.onAttach(activity);
+    	if(mPlayer!=null&&mSubject!=null){
+    		try {
+				mPlayer.playSound(SoundPlayer.TEST, mSubject.getGrade(),mSubject.getSubject());
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     }
 }

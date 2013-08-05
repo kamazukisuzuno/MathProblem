@@ -122,4 +122,10 @@ public class SoundPlayer {
             mPlayer.release();
         }
     }
+
+    public void reset(){
+        if(mPlayer!=null){
+            mPlayer.reset();
+        }
+    }
 }

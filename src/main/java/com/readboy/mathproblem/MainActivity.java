@@ -279,4 +279,10 @@ public class MainActivity extends FragmentActivity
 			e.printStackTrace();
 		}
     }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        mPlayer.reset();
+    }
 }

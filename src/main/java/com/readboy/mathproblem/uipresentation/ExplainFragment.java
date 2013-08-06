@@ -1,5 +1,6 @@
 package com.readboy.mathproblem.uipresentation;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
@@ -7,12 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.readboy.mathproblem.MainActivity;
 import com.readboy.mathproblem.R;
 import com.readboy.mathproblem.data.DataLoader;
 import com.readboy.mathproblem.data.SetData;
 import com.readboy.mathproblem.data.SoundPlayer;
 import com.readboy.mathproblem.subject.SubjectItem;
+import com.readboy.mathproblem.widget.SubjectFragment;
 import com.readboy.mathproblem.widget.TextViewWithPicture;
 
 import java.util.List;
@@ -20,14 +24,12 @@ import java.util.List;
 /**
  * Created by suzuno on 13-8-2.
  */
-public class ExplainFragment extends Fragment implements SetData {
+public class ExplainFragment extends SubjectFragment {
 
     private int mIndex;
     private String mContent;
     private List<byte[]> mImage;
 
-    private SubjectItem mSubject;
-    private SoundPlayer mPlayer;
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -45,6 +47,8 @@ public class ExplainFragment extends Fragment implements SetData {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        Toast.makeText(getActivity(), "Explain Fragment On Create", Toast.LENGTH_SHORT).show();
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mIndex = getArguments().getInt(ARG_ITEM_ID);
         }
@@ -53,6 +57,8 @@ public class ExplainFragment extends Fragment implements SetData {
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
 
+
+        Toast.makeText(getActivity(), "Explain Fragment On CreateView", Toast.LENGTH_SHORT).show();
         mContent = mSubject.getExampleContent(mIndex);
         mImage = mSubject.getExampleResource(mIndex);
 
@@ -62,15 +68,4 @@ public class ExplainFragment extends Fragment implements SetData {
         tv.setMovementMethod(new ScrollingMovementMethod());
         return rootView;
     }
-
-    @Override
-    public void loadData(DataLoader loader, SubjectItem subject) {
-
-        mSubject = subject;
-    }
-
-	@Override
-	public void setSoundPlayer(SoundPlayer player) {
-		mPlayer = player;
-	}
 }

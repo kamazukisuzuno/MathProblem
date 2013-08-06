@@ -280,9 +280,29 @@ public class MainActivity extends FragmentActivity
 		}
     }
 
+    public void playAnimation(){
+
+    }
+
     @Override
     public void onPause(){
         super.onPause();
         mPlayer.reset();
+    }
+
+    public SubjectItem getSubject(){
+        return mSubject;
+    }
+
+    public DataLoader getLoader(){
+        return mLoader;
+    }
+
+    public DataStructure getData(){
+        return mData;
+    }
+
+    public SoundPlayer getSoundPlayer(){
+        return mPlayer;
     }
 }

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.readboy.mathproblem.R;
 import com.readboy.mathproblem.data.DataLoader;
@@ -177,6 +178,7 @@ public class TestPageFragment extends Fragment implements SetData,View.OnClickLi
     @Override
     public void onAttach(Activity activity){
     	super.onAttach(activity);
+        Toast.makeText(activity, "Test Page Fragment On Attach", Toast.LENGTH_SHORT).show();
     	if(mPlayer!=null&&mSubject!=null){
     		try {
 				mPlayer.playSound(SoundPlayer.TEST, mSubject.getGrade(),mSubject.getSubject());

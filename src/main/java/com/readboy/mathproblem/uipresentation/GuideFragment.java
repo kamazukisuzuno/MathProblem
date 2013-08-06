@@ -58,6 +58,7 @@ public class GuideFragment extends Fragment implements SetData{
     @Override
     public void onAttach(Activity activity){
     	super.onAttach(activity);
+        Toast.makeText(activity, "Guide Fragment On Attach", Toast.LENGTH_SHORT).show();
     	if(mPlayer!=null&&mSubject!=null){
     		try {
 				mPlayer.playSound(SoundPlayer.GUIDE, mSubject.getGrade(),mSubject.getSubject());
@@ -78,5 +79,6 @@ public class GuideFragment extends Fragment implements SetData{
 	public void setSoundPlayer(SoundPlayer player) {
 		mPlayer = player;
 	}
+
 
 }

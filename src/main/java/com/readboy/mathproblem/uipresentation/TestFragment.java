@@ -1,5 +1,6 @@
 package com.readboy.mathproblem.uipresentation;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.readboy.mathproblem.R;
 import com.readboy.mathproblem.data.DataLoader;
@@ -77,4 +79,10 @@ public class TestFragment extends Fragment implements SetData {
 		mPlayer = player;
 		
 	}
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        Toast.makeText(activity, "Test Fragment On Attach", Toast.LENGTH_SHORT).show();
+    }
 }

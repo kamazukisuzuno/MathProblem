@@ -163,6 +163,7 @@
     <string name="caesura">、</string>
     <string name="config">设置</string>
     <string name="data_not_found">数据不存在</string>
+    <string name="error_no_subject_selected">请选择年级和课程</string>
     <string name="example">例题解析</string>
     <string name="grade1">一年级</string>
     <string name="grade2">二年级</string>

@@ -17,4 +17,5 @@
     <string name="grade6">六年级</string>
     <string name="caesura">、</string>
     <string name="submit">交卷</string>
+    <string name="error_no_subject_selected">请选择年级和课程</string>
 </resources>

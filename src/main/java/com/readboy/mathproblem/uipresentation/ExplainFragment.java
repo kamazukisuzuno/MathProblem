@@ -1,21 +1,13 @@
 package com.readboy.mathproblem.uipresentation;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.readboy.mathproblem.MainActivity;
 import com.readboy.mathproblem.R;
-import com.readboy.mathproblem.data.DataLoader;
-import com.readboy.mathproblem.data.SetData;
-import com.readboy.mathproblem.data.SoundPlayer;
-import com.readboy.mathproblem.subject.SubjectItem;
 import com.readboy.mathproblem.widget.SubjectFragment;
 import com.readboy.mathproblem.widget.TextViewWithPicture;
 
@@ -47,20 +39,16 @@ public class ExplainFragment extends SubjectFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        Toast.makeText(getActivity(), "Explain Fragment On Create", Toast.LENGTH_SHORT).show();
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mIndex = getArguments().getInt(ARG_ITEM_ID);
         }
+
+        mContent = mSubject.getExampleContent(mIndex);
+        mImage = mSubject.getExampleResource(mIndex);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
-
-
-        Toast.makeText(getActivity(), "Explain Fragment On CreateView", Toast.LENGTH_SHORT).show();
-        mContent = mSubject.getExampleContent(mIndex);
-        mImage = mSubject.getExampleResource(mIndex);
 
         View rootView = inflater.inflate(R.layout.explain_fragment,container,false);
         TextViewWithPicture tv = (TextViewWithPicture) rootView.findViewById(R.id.example);
@@ -68,4 +56,5 @@ public class ExplainFragment extends SubjectFragment {
         tv.setMovementMethod(new ScrollingMovementMethod());
         return rootView;
     }
+
 }

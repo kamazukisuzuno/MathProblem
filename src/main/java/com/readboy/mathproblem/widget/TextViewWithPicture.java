@@ -64,4 +64,6 @@ public class TextViewWithPicture extends TextView{
         }
         this.setText(spannable);
     }
+
+
 }

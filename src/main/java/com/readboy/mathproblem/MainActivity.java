@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.readboy.mathproblem.data.DataLoader;
 import com.readboy.mathproblem.data.DataStructure;
-import com.readboy.mathproblem.data.SetData;
 import com.readboy.mathproblem.data.SoundPlayer;
 import com.readboy.mathproblem.subject.SubjectItem;
 import com.readboy.mathproblem.uipresentation.ExplainPageFragment;
@@ -135,8 +134,6 @@ public class MainActivity extends FragmentActivity
             item.setGrade(gradeIndex);
             item.setSubject(subclassIndex);
             mSubject = item;
-            fragment.loadData(mLoader,item);
-            fragment.setSoundPlayer(mPlayer);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -215,10 +212,6 @@ public class MainActivity extends FragmentActivity
         return shareIntent;
     }
 
-    private void readConfig(){
-        String appName = getString(R.string.app_name);
-    }
-
     @Override
     public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
 
@@ -244,12 +237,6 @@ public class MainActivity extends FragmentActivity
 
         }
 
-        SetData loader = (SetData) fragment;
-        if(mSubject!=null){
-            loader.loadData(mLoader,mSubject);
-            loader.setSoundPlayer(mPlayer);
-        }
-
         fragment.setArguments(arguments);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.subject_detail_container, fragment).commit();
@@ -263,21 +250,6 @@ public class MainActivity extends FragmentActivity
     @Override
     public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
         //Toast.makeText(this,"on tab reselected",Toast.LENGTH_SHORT).show();
-    }
-    
-    public void playSound(int soundId,int grade,int subject){
-    	try {
-			mPlayer.playSound(soundId, grade, subject);
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
 
     public void playAnimation(){

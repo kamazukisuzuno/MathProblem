@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/anim_right" android:onshot="true">
+    <item android:drawable="@drawable/ans_right_0001" android:duration="@android:"
+
+</animation-list>

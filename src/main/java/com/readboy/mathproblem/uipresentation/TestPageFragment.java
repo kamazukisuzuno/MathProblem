@@ -17,24 +17,19 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.readboy.mathproblem.R;
-import com.readboy.mathproblem.data.DataLoader;
-import com.readboy.mathproblem.data.SetData;
 import com.readboy.mathproblem.data.SoundPlayer;
-import com.readboy.mathproblem.subject.SubjectItem;
 import com.readboy.mathproblem.widget.CirclePageIndicator;
+import com.readboy.mathproblem.widget.SubjectFragment;
+import com.readboy.mathproblem.widget.TextViewWithPicture;
 
 
 /**
  * Created by suzuno on 13-8-2.
  */
-public class TestPageFragment extends Fragment implements SetData,View.OnClickListener {
+public class TestPageFragment extends SubjectFragment implements View.OnClickListener {
 
     Bundle mArguments;
 
-    private int mTestCount;
-    private DataLoader mLoader;
-    private SubjectItem mSubject;
-    private SoundPlayer mPlayer;
     private CirclePageIndicator mCirclePageIndicator;
     /**
      * The fragment argument representing the item ID that this fragment
@@ -71,12 +66,26 @@ public class TestPageFragment extends Fragment implements SetData,View.OnClickLi
             // to load content from a content provider.
             //mString = getArguments().getString(ARG_ITEM_ID);
         }
+
+        if(mSubject!=null){
+            mSubject.readTest(mLoader);
+            mPlayer.playSound(SoundPlayer.TEST, mSubject.getGrade(),mSubject.getSubject());
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.v("ExplainPageFragment", "on create view");
+
+        if(mSubject==null){
+
+            View rootView = inflater.inflate(R.layout.guide_fragment,container,false);
+            TextViewWithPicture tv = (TextViewWithPicture)rootView.findViewById(R.id.grade);
+            tv.setText(R.string.error_no_subject_selected);
+            return rootView;
+
+        }
 
         View rootView = inflater.inflate(R.layout.test_pager_fragment, container, false);
 
@@ -101,18 +110,6 @@ public class TestPageFragment extends Fragment implements SetData,View.OnClickLi
         submit.setOnClickListener(this);
 
         return rootView;
-    }
-
-    private void initialize(){
-
-    }
-
-    @Override
-    public void loadData(DataLoader loader, SubjectItem subject) {
-        mLoader = loader;
-        mSubject = subject;
-        subject.readTest(loader);
-        mTestCount = subject.getTestCount();
     }
 
     @Override
@@ -155,9 +152,6 @@ public class TestPageFragment extends Fragment implements SetData,View.OnClickLi
             arguments.putInt(ARG_ITEM_ID,position);
             fragment.setArguments(arguments);
 
-            SetData loader = (SetData) fragment;
-            loader.loadData(mLoader,mSubject);
-
             return fragment;
         }
 
@@ -169,29 +163,9 @@ public class TestPageFragment extends Fragment implements SetData,View.OnClickLi
         	else return 0;
         }
     }
-
-	@Override
-	public void setSoundPlayer(SoundPlayer player) {
-		mPlayer = player;
-	}
 	
     @Override
     public void onAttach(Activity activity){
     	super.onAttach(activity);
-        Toast.makeText(activity, "Test Page Fragment On Attach", Toast.LENGTH_SHORT).show();
-    	if(mPlayer!=null&&mSubject!=null){
-    		try {
-				mPlayer.playSound(SoundPlayer.TEST, mSubject.getGrade(),mSubject.getSubject());
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
     }
 }

@@ -28,7 +28,7 @@ public class SubjectItem{
 
     private int mGrade;
     private int mSubject;
-    
+
     private int mExampleCount;
     private int mTestCount;
 
@@ -280,11 +280,11 @@ public class SubjectItem{
     }
 
     public void solveProblem(String answer,int index,SoundPlayer player){
-    	Integer i = mSolvedProblem.get(index);
-    	
+        Integer i = mSolvedProblem.get(index);
+
         if(i==null){
             mSolvedProblemCount++;
-            
+
             if(getTestAnswer(index).contains(answer)){
                 mSolvedProblem.put(index,SOLVED_RIGHT);
                 playResult(player,SOLVED_RIGHT,index);
@@ -292,80 +292,48 @@ public class SubjectItem{
                 mSolvedProblem.put(index,SOLVED_WRONG);
                 playResult(player,SOLVED_WRONG,index);
             };
-            
+
             return;
         }
-        
+
         switch(i){
-        case SOLVED_RIGHT:
-        case SOLVED_WRONG_TWICE:
-        	return;
-        case SOLVED_WRONG:
-            if(getTestAnswer(index).contains(answer)){
-                mSolvedProblem.put(index,SOLVED_RIGHT);
-                playResult(player,SOLVED_RIGHT,index);
-            }else{
-                mSolvedProblem.put(index,SOLVED_WRONG_TWICE);
-                playResult(player,SOLVED_WRONG_TWICE,index);
-            };
+            case SOLVED_RIGHT:
+            case SOLVED_WRONG_TWICE:
+                return;
+            case SOLVED_WRONG:
+                if(getTestAnswer(index).contains(answer)){
+                    mSolvedProblem.put(index,SOLVED_RIGHT);
+                    playResult(player,SOLVED_RIGHT,index);
+                }else{
+                    mSolvedProblem.put(index,SOLVED_WRONG_TWICE);
+                    playResult(player,SOLVED_WRONG_TWICE,index);
+                };
         }
 
-        
+
     }
-    
+
     private void playResult(SoundPlayer player,int result,int index){
 
         if(result == SubjectItem.SOLVED_RIGHT){
-        	try {
-        		player.playSound(SoundPlayer.RIGHT, 0, 0);
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            player.playSound(SoundPlayer.RIGHT, 0, 0);
         }else if(result == SubjectItem.SOLVED_WRONG){
-        	try {
-        		player.playSound(SoundPlayer.WRONG, 0, 0);
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+            player.playSound(SoundPlayer.WRONG, 0, 0);
         }else if(result == SubjectItem.SOLVED_WRONG_TWICE){
-        	try {
-        	String answer = mTestAnswerList.get(index);
-        	if(answer.contains("A")){
-					player.playSound(SoundPlayer.ANSWER_IS_A, 0, 0);
-	        	}else if(answer.contains("B")){
-	        		player.playSound(SoundPlayer.ANSWER_IS_B, 0, 0);
-	        	}else if(answer.contains("C")){
-	        		player.playSound(SoundPlayer.ANSWER_IS_C, 0, 0);
-	        	}else if(answer.contains("D")){
-	        		player.playSound(SoundPlayer.ANSWER_IS_D, 0, 0);
-	        	}
-        	} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            String answer = mTestAnswerList.get(index);
+            if(answer.contains("A")){
+                player.playSound(SoundPlayer.ANSWER_IS_A, 0, 0);
+            }else if(answer.contains("B")){
+                player.playSound(SoundPlayer.ANSWER_IS_B, 0, 0);
+            }else if(answer.contains("C")){
+                player.playSound(SoundPlayer.ANSWER_IS_C, 0, 0);
+            }else if(answer.contains("D")){
+                player.playSound(SoundPlayer.ANSWER_IS_D, 0, 0);
+            }
         }
     }
-    
+
     public void submit(Context context){
         Toast.makeText(context,mSolvedProblemCount+",score:"+computeScore(),Toast.LENGTH_SHORT).show();
     }
@@ -384,19 +352,19 @@ public class SubjectItem{
         return (int) ((float)scored/totalCount*100);
     }
 
-	public int getGrade() {
-		return mGrade;
-	}
+    public int getGrade() {
+        return mGrade;
+    }
 
-	public void setGrade(int mGrade) {
-		this.mGrade = mGrade;
-	}
+    public void setGrade(int mGrade) {
+        this.mGrade = mGrade;
+    }
 
-	public int getSubject() {
-		return mSubject;
-	}
+    public int getSubject() {
+        return mSubject;
+    }
 
-	public void setSubject(int mSubject) {
-		this.mSubject = mSubject;
-	}
+    public void setSubject(int mSubject) {
+        this.mSubject = mSubject;
+    }
 }

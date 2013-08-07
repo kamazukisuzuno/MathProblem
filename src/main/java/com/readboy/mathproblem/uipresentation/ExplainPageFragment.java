@@ -9,18 +9,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.readboy.mathproblem.R;
-import com.readboy.mathproblem.data.DataLoader;
-import com.readboy.mathproblem.data.SetData;
 import com.readboy.mathproblem.data.SoundPlayer;
-import com.readboy.mathproblem.subject.SubjectItem;
 import com.readboy.mathproblem.widget.CirclePageIndicator;
+import com.readboy.mathproblem.widget.SubjectFragment;
+import com.readboy.mathproblem.widget.TextViewWithPicture;
 
 /**
  * A fragment representing a single Subject detail screen.
@@ -28,13 +27,10 @@ import com.readboy.mathproblem.widget.CirclePageIndicator;
  * in two-pane mode (on tablets) or
  * on handsets.
  */
-public class ExplainPageFragment extends Fragment implements SetData {
+public class ExplainPageFragment extends SubjectFragment{
 
     Bundle mArguments;
     private int mExampleCount;
-    private DataLoader mLoader;
-    private SubjectItem mSubject;
-    private SoundPlayer mPlayer;
     
     /**
      * The fragment argument representing the item ID that this fragment
@@ -72,12 +68,27 @@ public class ExplainPageFragment extends Fragment implements SetData {
             // to load content from a content provider.
             //mString = getArguments().getString(ARG_ITEM_ID);
         }
+
+        if(mSubject!=null){
+            mSubject.readExample(mLoader);
+            mPlayer.playSound(SoundPlayer.EXAMPLE, mSubject.getGrade(),mSubject.getSubject());
+        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         Log.v("ExplainPageFragment","on create view");
+
+        if(mSubject==null){
+
+            View rootView = inflater.inflate(R.layout.guide_fragment,container,false);
+            TextViewWithPicture tv = (TextViewWithPicture)rootView.findViewById(R.id.grade);
+            tv.setText(R.string.error_no_subject_selected);
+            return rootView;
+
+        }
 
         View rootView = inflater.inflate(R.layout.explain_pager_fragment, container, false);
 
@@ -89,18 +100,6 @@ public class ExplainPageFragment extends Fragment implements SetData {
         mCirclePageIndicator.setViewPager(mPager);
 
         return rootView;
-    }
-
-    private void initialize(){
-
-    }
-
-    @Override
-    public void loadData(DataLoader loader, SubjectItem subject) {
-        mLoader = loader;
-        mSubject = subject;
-        subject.readExample(loader);
-        mExampleCount = subject.getExampleCount();
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter{
@@ -116,40 +115,20 @@ public class ExplainPageFragment extends Fragment implements SetData {
             arguments.putInt(ARG_ITEM_ID,position);
             fragment.setArguments(arguments);
 
-            SetData loader = (SetData) fragment;
-            loader.loadData(mLoader,mSubject);
-
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return mExampleCount;
+            if(mSubject==null){
+                return 0;
+            }
+            return mSubject.getExampleCount();
         }
     }
 
-	@Override
-	public void setSoundPlayer(SoundPlayer player) {
-		mPlayer = player;
-	}
-	
     @Override
     public void onAttach(Activity activity){
     	super.onAttach(activity);
-        Toast.makeText(activity,"Explain Page Fragment On Attach",Toast.LENGTH_SHORT).show();
-        if(mPlayer!=null&&mSubject!=null){
-    		try {
-				mPlayer.playSound(SoundPlayer.EXAMPLE, mSubject.getGrade(),mSubject.getSubject());
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
     }
 }

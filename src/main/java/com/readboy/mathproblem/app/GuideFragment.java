@@ -1,4 +1,4 @@
-package com.readboy.mathproblem.uipresentation;
+package com.readboy.mathproblem.app;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,14 +6,11 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.readboy.mathproblem.R;
 import com.readboy.mathproblem.data.SoundPlayer;
-import com.readboy.mathproblem.widget.SubjectFragment;
-import com.readboy.mathproblem.widget.TextViewWithPicture;
+import com.readboy.mathproblem.view.TextViewWithPicture;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -41,19 +38,17 @@ public class GuideFragment extends SubjectFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
+        View rootView;
+
         if(mSubject==null){
-
-            View rootView = inflater.inflate(R.layout.guide_fragment,container,false);
+            rootView = super.onCreateView(inflater, container, savedInstanceState);
+        }else{
+            rootView = inflater.inflate(R.layout.guide_fragment,container,false);
             TextViewWithPicture tv = (TextViewWithPicture)rootView.findViewById(R.id.grade);
-            tv.setText(R.string.error_no_subject_selected);
-            return rootView;
-
+            tv.updateTextView(mContent,mImage);
+            tv.setMovementMethod(new ScrollingMovementMethod());
         }
 
-        View rootView = inflater.inflate(R.layout.guide_fragment,container,false);
-        TextViewWithPicture tv = (TextViewWithPicture)rootView.findViewById(R.id.grade);
-        tv.updateTextView(mContent,mImage);
-        tv.setMovementMethod(new ScrollingMovementMethod());
         return rootView;
     }
     

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/anim_right" android:oneshot="true">
+    <item android:drawable="@drawable/pass_0001" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0002" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0003" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0004" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0005" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0006" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0007" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0008" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0009" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0010" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0011" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0012" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0013" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0014" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0015" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0016" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0017" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0018" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0019" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0020" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0021" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0022" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0023" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0024" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0025" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0026" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0027" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0028" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0029" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/pass_0030" android:duration="@integer/frame_delay"/>
+</animation-list>

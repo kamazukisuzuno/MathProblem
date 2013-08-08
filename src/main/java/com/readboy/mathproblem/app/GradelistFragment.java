@@ -1,4 +1,4 @@
-package com.readboy.mathproblem.uipresentation;
+package com.readboy.mathproblem.app;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.widget.SimpleExpandableListAdapter;
 
 import com.readboy.mathproblem.R;
 import com.readboy.mathproblem.data.DataStructure;
-import com.readboy.mathproblem.widget.ExpandableListFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;

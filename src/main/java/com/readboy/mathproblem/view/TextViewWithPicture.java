@@ -1,4 +1,4 @@
-package com.readboy.mathproblem.widget;
+package com.readboy.mathproblem.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +8,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * Created by suzuno on 13-8-4.
  */
 public class TextViewWithPicture extends TextView{
+
 
 
     public TextViewWithPicture(Context context) {
@@ -49,7 +51,7 @@ public class TextViewWithPicture extends TextView{
         for(int i=0;i<size;i++){
             image = BitmapFactory.decodeByteArray(imageResourceList.get(i), 0, imageResourceList.get(i).length);
             imageDrawable = new BitmapDrawable(image);
-            imageDrawable.setBounds(0, 0, imageDrawable.getIntrinsicWidth(), imageDrawable.getIntrinsicHeight());
+            imageDrawable.setBounds(0, 10, imageDrawable.getIntrinsicWidth(), imageDrawable.getIntrinsicHeight()+10);
             imageSpan = new ImageSpan(imageDrawable, ImageSpan.ALIGN_BASELINE);
 
             sbstart = sb.indexOf("<P m=\"0\" >");

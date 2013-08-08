@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/anim_right" android:onshot="true">
-    <item android:drawable="@drawable/ans_right_0001" android:duration="@android:"
-
+        android:id="@+id/anim_right" android:oneshot="true">
+    <item android:drawable="@drawable/ans_right_0001" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0002" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0003" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0004" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0005" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0006" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0007" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0008" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0009" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0010" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0011" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0012" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0013" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0014" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0015" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0016" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0017" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0018" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0019" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0020" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0021" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0022" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0023" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0024" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0025" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0026" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0027" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0028" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0029" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/ans_right_0030" android:duration="@integer/frame_delay"/>
 </animation-list>

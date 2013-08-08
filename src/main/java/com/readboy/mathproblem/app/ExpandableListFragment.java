@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.readboy.mathproblem.widget;
+package com.readboy.mathproblem.app;
 
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -33,8 +33,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
-
-import com.readboy.mathproblem.R;
 
 /**
  * Static library support version of the framework's {@link android.app.ListFragment}.

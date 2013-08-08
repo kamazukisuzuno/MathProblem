@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/anim_right" android:oneshot="true">
+    <item android:drawable="@drawable/good_0001" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0002" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0003" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0004" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0005" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0006" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0007" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0008" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0009" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0010" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0011" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0012" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0013" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0014" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0015" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0016" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0017" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0018" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0019" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0020" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0021" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0022" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0023" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0024" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0025" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0026" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0027" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0028" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0029" android:duration="@integer/frame_delay"/>
+    <item android:drawable="@drawable/good_0030" android:duration="@integer/frame_delay"/>
+</animation-list>

@@ -18,10 +18,10 @@ import com.readboy.mathproblem.data.DataLoader;
 import com.readboy.mathproblem.data.DataStructure;
 import com.readboy.mathproblem.data.SoundPlayer;
 import com.readboy.mathproblem.subject.SubjectItem;
-import com.readboy.mathproblem.uipresentation.ExplainPageFragment;
-import com.readboy.mathproblem.uipresentation.GradelistFragment;
-import com.readboy.mathproblem.uipresentation.GuideFragment;
-import com.readboy.mathproblem.uipresentation.TestPageFragment;
+import com.readboy.mathproblem.app.ExplainPageFragment;
+import com.readboy.mathproblem.app.GradelistFragment;
+import com.readboy.mathproblem.app.GuideFragment;
+import com.readboy.mathproblem.app.TestPageFragment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,11 +38,11 @@ import java.util.Map;
  * item details side-by-side using two vertical panes.
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
- * {@link com.readboy.mathproblem.uipresentation.GradelistFragment} and the item details
- * (if present) is a {@link com.readboy.mathproblem.uipresentation.ExplainPageFragment}.
+ * {@link com.readboy.mathproblem.app.GradelistFragment} and the item details
+ * (if present) is a {@link com.readboy.mathproblem.app.ExplainPageFragment}.
  * <p>
  * This activity also implements the required
- * {@link com.readboy.mathproblem.uipresentation.GradelistFragment.Callbacks} interface
+ * {@link com.readboy.mathproblem.app.GradelistFragment.Callbacks} interface
  * to listen for item selections.
  */
 public class MainActivity extends FragmentActivity
@@ -118,7 +118,7 @@ public class MainActivity extends FragmentActivity
     }
 
     /**
-     * Callback method from {@link com.readboy.mathproblem.uipresentation.GradelistFragment.Callbacks}
+     * Callback method from {@link com.readboy.mathproblem.app.GradelistFragment.Callbacks}
      * indicating that the item with the given ID was selected.
      */
     @Override

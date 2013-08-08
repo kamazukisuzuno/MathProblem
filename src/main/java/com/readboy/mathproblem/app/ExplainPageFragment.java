@@ -1,6 +1,4 @@
-package com.readboy.mathproblem.uipresentation;
-
-import java.io.IOException;
+package com.readboy.mathproblem.app;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,17 +7,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.readboy.mathproblem.R;
 import com.readboy.mathproblem.data.SoundPlayer;
-import com.readboy.mathproblem.widget.CirclePageIndicator;
-import com.readboy.mathproblem.widget.SubjectFragment;
-import com.readboy.mathproblem.widget.TextViewWithPicture;
+import com.readboy.libs.CirclePageIndicator;
 
 /**
  * A fragment representing a single Subject detail screen.
@@ -79,25 +73,21 @@ public class ExplainPageFragment extends SubjectFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        Log.v("ExplainPageFragment","on create view");
+        View rootView;
 
         if(mSubject==null){
+            rootView = super.onCreateView(inflater,container,savedInstanceState);
+        }else{
+            rootView = inflater.inflate(R.layout.explain_pager_fragment, container, false);
 
-            View rootView = inflater.inflate(R.layout.guide_fragment,container,false);
-            TextViewWithPicture tv = (TextViewWithPicture)rootView.findViewById(R.id.grade);
-            tv.setText(R.string.error_no_subject_selected);
-            return rootView;
+            mPager = (ViewPager) rootView.findViewById(R.id.pager);
+            mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager());
+            mPager.setAdapter(mPagerAdapter);
+
+            mCirclePageIndicator = (CirclePageIndicator)rootView.findViewById(R.id.indicator);
+            mCirclePageIndicator.setViewPager(mPager);
 
         }
-
-        View rootView = inflater.inflate(R.layout.explain_pager_fragment, container, false);
-
-        mPager = (ViewPager) rootView.findViewById(R.id.pager);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
-
-        mCirclePageIndicator = (CirclePageIndicator)rootView.findViewById(R.id.indicator);
-        mCirclePageIndicator.setViewPager(mPager);
 
         return rootView;
     }
